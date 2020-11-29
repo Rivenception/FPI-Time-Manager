@@ -12,6 +12,8 @@ $(document).ready(function () {
     var programId = $('#inputGroupProgram');
     var inputEcr = $('#inputGroupEcr');
     var inputNotes = $('#inputGroupNotes');
+    var dept = $('#dept').text();
+    var deptURL = '';
 
     updating = true;
 
@@ -20,6 +22,19 @@ $(document).ready(function () {
 
     // Getting the initial list of Time Entries
     getLastEntries();
+    checkDept();
+
+    // Function that checks html to confirm department called from routes
+    function checkDept() {
+        deptURL = '';
+        if (dept === 'Engineering') {
+            deptURL = "eng";
+        } else if (dept === 'Manufacturing') {
+            deptURL = "mfg";
+        } else if (dept === 'Program Management') {
+            deptURL = "pm";
+        };
+    };
 
     // A function for handling what happens when the form to create a new post is submitted
     function handleFormSubmit(event) {
@@ -29,7 +44,7 @@ $(document).ready(function () {
             return;
         }
         // Constructing a newPost object to hand to the database
-        var newTimeEntry = {
+        var newEntry = {
             employee_id: userName,
             name: nameSelect.text().trim(),
 
@@ -46,10 +61,10 @@ $(document).ready(function () {
 
         if (updating) {
             console.log("fetching updates");
-            newTimeEntry.id = entryId;
-            updateTimeblock(newTimeEntry);
+            newEntry.id = entryId;
+            updateTimeblock(newEntry);
         } else {
-            submitTimeblock(newTimeEntry);
+            submitTimeblock(newEntry);
         }
     };
 
@@ -62,20 +77,20 @@ $(document).ready(function () {
     // Function for creating a new list row for timeblocks
 
     // for some reason this is not working
-    function createRow(newTimeEntry) {
+    function createRow(newEntry) {
         var allEntries = [];
-        for (var i = 0; i < newTimeEntry.length; i++) {
+        for (var i = 0; i < newEntry.length; i++) {
             var newTr = $("<tr>");
-            newTr.data("timeblock", newTimeEntry[i].id);
-            newTr.append("<td>" + newTimeEntry[i].id + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].name + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].date + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].category + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].task + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].timespent + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].program + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].ecr + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].notes + "</td>");
+            newTr.data("timeblock", newEntry[i].id);
+            newTr.append("<td>" + newEntry[i].id + "</td>");
+            newTr.append("<td id='tableName'><a href='/" + deptURL + "/" + newEntry[i].employee_id + "'>" + newEntry[i].name + "</td>");
+            newTr.append("<td>" + newEntry[i].date + "</td>");
+            newTr.append("<td>" + newEntry[i].category + "</td>");
+            newTr.append("<td>" + newEntry[i].task + "</td>");
+            newTr.append("<td>" + newEntry[i].timespent + "</td>");
+            newTr.append("<td>" + newEntry[i].program + "</td>");
+            newTr.append("<td>" + newEntry[i].ecr + "</td>");
+            newTr.append("<td>" + newEntry[i].notes + "</td>");
             allEntries.push(newTr)
         }
         return allEntries;
@@ -93,7 +108,7 @@ $(document).ready(function () {
         console.log(route);
         $.get(route, function (data) {
             for (var i = 0; i < data.length; i++) {
-                var newTimeEntry = {
+                var newEntry = {
                     id: data[i].id,
                     employee_id: data[i].employee_id,
                     name: data[i].name,
@@ -105,8 +120,8 @@ $(document).ready(function () {
                     program: data[i].program,
                     notes: data[i].notes,
                 }
-                // console.log(newTimeEntry);
-                rowsToAdd.push(newTimeEntry);
+                // console.log(newEntry);
+                rowsToAdd.push(newEntry);
                 // console.log(rowsToAdd);
             }
             renderList(createRow(rowsToAdd));
