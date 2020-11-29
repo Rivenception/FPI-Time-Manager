@@ -82,15 +82,15 @@ $(document).ready(function () {
         for (var i = 0; i < newEntry.length; i++) {
             var newTr = $("<tr>");
             newTr.data("timeblock", newEntry[i].id);
-            newTr.append("<td>" + newEntry[i].id + "</td>");
+            newTr.append("<td id='logId-"  + newEntry[i].id + "'>" + newEntry[i].id + "</td>");
             newTr.append("<td id='tableName'><a href='/" + deptURL + "/" + newEntry[i].employee_id + "'>" + newEntry[i].name + "</td>");
-            newTr.append("<td>" + newEntry[i].date + "</td>");
-            newTr.append("<td>" + newEntry[i].category + "</td>");
-            newTr.append("<td>" + newEntry[i].task + "</td>");
-            newTr.append("<td>" + newEntry[i].timespent + "</td>");
-            newTr.append("<td>" + newEntry[i].program + "</td>");
-            newTr.append("<td>" + newEntry[i].ecr + "</td>");
-            newTr.append("<td>" + newEntry[i].notes + "</td>");
+            newTr.append("<td id='tableDate'>" + newEntry[i].date + "</td>");
+            newTr.append("<td id='tableCategory'>" + newEntry[i].category + "</td>");
+            newTr.append("<td id='tableTask'>" + newEntry[i].task + "</td>");
+            newTr.append("<td id='tableTime'>" + newEntry[i].timespent + "</td>");
+            newTr.append("<td id='tableProgram'><a href='/rfb/" + newEntry[i].program + "'>" + newEntry[i].program + "</td>");
+            newTr.append("<td id='tableECR'><a href='/rfb/ecr/" + newEntry[i].ecr + "'>" + newEntry[i].ecr + "</td>");
+            newTr.append("<td id='tableNotes'>" + newEntry[i].notes + "</td>");
             allEntries.push(newTr)
         }
         return allEntries;
@@ -125,6 +125,25 @@ $(document).ready(function () {
                 // console.log(rowsToAdd);
             }
             renderList(createRow(rowsToAdd));
+
+             // prefills the values for these the log entry to the html form for faster edits from the user
+             programId.attr("value", ($("#logId-" + entryId).parent("tr").children("#tableProgram").text()))
+             inputNotes.attr("value", ($("#logId-" + entryId).parent("tr").children("#tableNotes").text()))
+             inputEcr.attr("value", ($("#logId-" + entryId).parent("tr").children("#tableECR").text()))
+
+             // pre-selects the current log entry options to the html form for faster edits from the user
+             $("#inputGroupCategory > option").each(function() {
+                if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableCategory").text())) {
+                    this.selected = true
+                }});
+            $("#inputGroupTask > option").each(function() {
+                if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableTask").text())) {
+                    this.selected = true
+                }});
+            $("#inputGroupTime > option").each(function() {
+                if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableTime").text())) {
+                    this.selected = true
+                }});
         });
     }
 
@@ -180,20 +199,6 @@ $(document).ready(function () {
             .then(function () {
                 window.location.href = "/eng/" + userName;
             });
-    }
-
-    function employeesDropdown() {
-        var dept = $('#dept').text();
-        console.log(dept);
-        var employeeInput = $("#inputGroupEmployee");
-        //For loop that checks the URL for a userId and compares to the employee_id key in the database. If accurate, it sets the Name value in the html for the user by default.
-        if (window.location.href === "/eng" + employeeId || "/mfg" + employeeId || "/pm" + employeeId) {
-            if (window.location.href.indexOf(employeeId[i]) > -1) {
-                let dropdown = $("<option>").attr("value", employees[i]).text(employees[i]);
-                employeeInput.append(dropdown);
-                return;
-            }
-        }
     }
 
 });

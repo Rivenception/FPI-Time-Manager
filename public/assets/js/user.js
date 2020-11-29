@@ -78,7 +78,7 @@ $(document).ready(function () {
         for (var i = 0; i < newEntry.length; i++) {
             var newTr = $("<tr>");
             newTr.data("tableRow", newEntry[i].id);
-            newTr.append("<td id=''>" + newEntry[i].id + "</td>");
+            newTr.append("<td id='logId#"  + newEntry[i].id + "'>" + newEntry[i].id + "</td>");
             newTr.append("<td id='tableName'><a href='/" + deptURL + "/" + newEntry[i].employee_id + "'>" + newEntry[i].name + "</td>");
             newTr.append("<td id='tableDate'>" + newEntry[i].date + "</td>");
             newTr.append("<td id='tableCategory'>" + newEntry[i].category + "</td>");
