@@ -162,23 +162,8 @@ $(document).ready(function () {
 
     // Function that dyanmically creates the task input options for the user in the html
     function tasksDropdown() {
-        console.log("fetching Tasks...");
-        if (window.location.href === "/eng") {
-            for (let i = 0; i < eng_tasks.length; i++) {
-                let dropdown = $("<option>").attr("value", eng_tasks[i]).text(eng_tasks[i]);
-                $("#inputGroupTask").append(dropdown);
-            }
-        } else if (window.location.href === "/mfg") {
-            for (let i = 0; i < mfg_tasks.length; i++) {
-                let dropdown = $("<option>").attr("value", mfg_tasks[i]).text(mfg_tasks[i]);
-                $("#inputGroupTask").append(dropdown);
-            }
-        } else if (window.location.href === "/pm") {
-            for (let i = 0; i < pm_tasks.length; i++) {
-                let dropdown = $("<option>").attr("value", pm_tasks[i]).text(pm_tasks[i]);
-                $("#inputGroupTask").append(dropdown);
-            }
-        } else if (entryId) {
+        console.log("fetching Tasks for " + userName);
+        if (entryId) {
             if (dept === 'Engineering') {
                 for (let i = 0; i < eng_tasks.length; i++) {
                     let dropdown = $("<option>").attr("value", eng_tasks[i]).text(eng_tasks[i]);
@@ -195,7 +180,22 @@ $(document).ready(function () {
                     $("#inputGroupTask").append(dropdown);
                 }
             };
-        }
+        } else if (dept === 'Engineering') {
+            for (let i = 0; i < eng_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", eng_tasks[i]).text(eng_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (dept === 'Manufacturing') {
+            for (let i = 0; i < mfg_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", mfg_tasks[i]).text(mfg_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (dept === 'Program Management') {
+            for (let i = 0; i < pm_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", pm_tasks[i]).text(pm_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        };
     }
 
     // Function that dyanmically creates the time input options for the user in the html

@@ -38,7 +38,10 @@ $(document).ready(function () {
         console.log("Add Button Triggered");
         // Wont submit the post if we are missing a body, title, or author
         if (!nameSelect.val() || !dateSelect.val().trim() || !categorySelect.val() || !taskSelect.val() || !timeSelect.val() || !programId.val().trim()) {
-            console.log("Make sure the program ID is not empty");
+            var alertDiv = $("<div>");
+            alertDiv.addClass("alert alert-danger");
+            alertDiv.text("Make sure the program ID is not empty and all required fields are filled in.");
+            tableContainer.prepend(alertDiv);
             return;
         }
 
