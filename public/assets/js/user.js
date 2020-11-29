@@ -35,10 +35,13 @@ $(document).ready(function () {
 
     // A function for handling what happens when the form to create a new post is submitted
     function handleFormSubmit() {
+        console.log("Add Button Triggered");
         // Wont submit the post if we are missing a body, title, or author
         if (!nameSelect.val() || !dateSelect.val().trim() || !categorySelect.val() || !taskSelect.val() || !timeSelect.val() || !programId.val().trim()) {
+            console.log("Make sure the program ID is not empty");
             return;
         }
+
         // Constructing a newPost object to hand to the database
         var newEntry = {
             employee_id: userName,
@@ -54,17 +57,20 @@ $(document).ready(function () {
             notes: inputNotes.val(),
             FKemployee_id: userName,
         };
+
         submitTableRow(newEntry);
     };
 
     // Submits a new tableRow entry
     function submitTableRow(data) {
+        console.log("Posting new entry...")
         $.post("/api/timesheets", data)
             .then(getLastEntries);
     }
 
     // Function for creating a new list row for tableRows
     function createRow(newEntry) {
+        console.log("Creating Rows...");
         var allEntries = [];
         for (var i = 0; i < newEntry.length; i++) {
             var newTr = $("<tr>");
@@ -89,6 +95,7 @@ $(document).ready(function () {
     // Function for retrieving tableRows and getting them ready to be rendered to the page
     function getLastEntries() {
         checkDept();
+        console.log("Getting latest entries for " + userName);
         var rowsToAdd = [];
         var route = "/api/timesheets/limit=50/"  + userName;
         $.get(route, function (data) {
@@ -136,6 +143,7 @@ $(document).ready(function () {
 
     // Function for handling what happens when the delete button is pressed
     function handleDeleteButtonPress() {
+        console.log("Delete Button Triggered");
         var id = $(this).parent("td").parent("tr").data("tableRow");
         console.log(id);
         $.ajax({

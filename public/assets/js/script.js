@@ -179,10 +179,22 @@ $(document).ready(function () {
                 $("#inputGroupTask").append(dropdown);
             }
         } else if (entryId) {
-            for (let i = 0; i < pm_category.length; i++) {
-                let dropdown = $("<option>").attr("value", pm_category[i]).text(pm_category[i]);
-                $("#inputGroupCategory").append(dropdown);
-            }
+            if (dept === 'Engineering') {
+                for (let i = 0; i < eng_tasks.length; i++) {
+                    let dropdown = $("<option>").attr("value", eng_tasks[i]).text(eng_tasks[i]);
+                    $("#inputGroupTask").append(dropdown);
+                }
+            } else if (dept === 'Manufacturing') {
+                for (let i = 0; i < mfg_tasks.length; i++) {
+                    let dropdown = $("<option>").attr("value", mfg_tasks[i]).text(mfg_tasks[i]);
+                    $("#inputGroupTask").append(dropdown);
+                }
+            } else if (dept === 'Program Management') {
+                for (let i = 0; i < pm_tasks.length; i++) {
+                    let dropdown = $("<option>").attr("value", pm_tasks[i]).text(pm_tasks[i]);
+                    $("#inputGroupTask").append(dropdown);
+                }
+            };
         }
     }
 

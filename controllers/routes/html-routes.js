@@ -93,6 +93,7 @@ module.exports = function (app) {
         logId: dbTimesheet.id,
         user: dbTimesheet.employee_id,
         employeeName: dbTimesheet.name,
+        dept: dbTimesheet.Employee.dept
         // program: dbTimesheet.program,
         // ecr: dbTimesheet.ecr,
         // category: dbTimesheet.category,

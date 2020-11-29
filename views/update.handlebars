@@ -1,9 +1,8 @@
 <div class="jumbotron jumbotron-fluid">
   <class class="container">
-    <h1 class="header">Time Summary</h1>
-    <h2 class="subheader">Update Entry</h2>
+    <h1 class="header">Update Entry</h1>
+    <h2 class="subheader" id="dept">{{this.dept}}</h2>
     <h2 class="subheader">{{this.employeeName}}</h2>
-    <h2 class="hidden" id="dept">{{this.dept}}</h2>
     <h2 class="subheader" id="logId">Log# {{this.logId}}</h2>
     <h2 class="hidden" id="hidden-logId">{{this.logId}}</h2>
     <h2 class="hidden" id="hidden-employeeId">{{this.user}}</h2>
@@ -44,14 +43,14 @@
           <input placeholder="  Enter an ECR#" id="inputGroupEcr" type="number" />
           <br>
           <label for="name">Name:</label>
-          <select placeholder="Select Employee" class="custom-select" id="inputGroupEmployee" >
+          <select placeholder="Select Employee" class="custom-select" id="inputGroupEmployee">
           </select>
           <label for="category">Category:</label>
-          <select placeholder="Enter the Category" class="custom-select" id="inputGroupCategory" >
+          <select placeholder="Enter the Category" class="custom-select" id="inputGroupCategory">
           </select>
           <br>
           <label for="task">Task:</label>
-          <select placeholder="Enter a task" class="custom-select" id="inputGroupTask" >
+          <select placeholder="Enter a task" class="custom-select" id="inputGroupTask">
           </select>
           <br>
           <label for="task type">Task Type:</label>
@@ -59,7 +58,7 @@
           </select>
           <br>
           <label for="time">Time:</label>
-          <select placeholder="Enter time" class="custom-select" id="inputGroupTime" >
+          <select placeholder="Enter time" class="custom-select" id="inputGroupTime">
           </select>
           <br>
           <br>
