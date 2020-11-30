@@ -94,12 +94,6 @@ module.exports = function (app) {
         user: dbTimesheet.employee_id,
         employeeName: dbTimesheet.name,
         dept: dbTimesheet.Employee.dept
-        // program: dbTimesheet.program,
-        // ecr: dbTimesheet.ecr,
-        // category: dbTimesheet.category,
-        // task: dbTimesheet.task,
-        // time: dbTimesheet.time,
-        // note: dbTimesheet.note
       });
     });
   });
@@ -127,6 +121,21 @@ module.exports = function (app) {
     }).then(function (dbEmployee) {
       console.log(dbEmployee.employee_id);
       res.render("eng", {
+        user: dbEmployee.employee_id,
+        employeeName: dbEmployee.name,
+        dept: dbEmployee.dept,
+      });
+    });
+  });
+
+  app.get("/admin/:user", function (req, res) {
+    db.Employee.findOne({
+      where: {
+        employee_id: req.params.user
+      }
+    }).then(function (dbEmployee) {
+      console.log(dbEmployee.employee_id);
+      res.render("admin", {
         user: dbEmployee.employee_id,
         employeeName: dbEmployee.name,
         dept: dbEmployee.dept,

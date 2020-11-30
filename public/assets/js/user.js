@@ -160,7 +160,6 @@ $(document).ready(function () {
 
     // This function figures out which post we want to edit and takes it to the appropriate url
     function handleEdit() {
-        console.log("yes");
         var currentEntry = $(this).parent("td").parent("tr").data("tableRow");
         console.log(currentEntry);
         window.location.href = "/update/" + currentEntry
@@ -198,8 +197,6 @@ $(document).ready(function () {
         }
         console.log(duplicateEntry.ecr);
         submitTableRow(duplicateEntry);
-
-        // window.location.href = "/update/" + currentEntry
     }
 
 });

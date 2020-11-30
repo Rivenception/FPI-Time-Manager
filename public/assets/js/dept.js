@@ -26,10 +26,25 @@ $(document).ready(function () {
         deptURL = '';
         if (dept === 'Engineering') {
             deptURL = "eng";
+            $("#deptSelect > option").each(function() {
+                if (this.value === dept) {
+                    this.selected = true
+                }
+            });
         } else if (dept === 'Manufacturing') {
             deptURL = "mfg";
+            $("#deptSelect > option").each(function() {
+                if (this.value === dept) {
+                    this.selected = true
+                }
+            });
         } else if (dept === 'Program Management') {
             deptURL = "pm";
+            $("#deptSelect > option").each(function() {
+                if (this.value === dept) {
+                    this.selected = true
+                }
+            });
         };
     };
 
