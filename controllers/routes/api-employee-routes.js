@@ -68,11 +68,12 @@ module.exports = function (app) {
     });
 
     app.put("/api/employees/:user", function (req, res) {
-        db.Employee.update({
-            where: {
-                name: req.params.user
-            }
-        }).then(function (dbEmployee) {
+        db.Employee.update(req.body,
+            {
+                where: {
+                    employee_id: req.params.user
+                }
+            }).then(function (dbEmployee) {
             res.json(dbEmployee);
         });
     });

@@ -135,15 +135,18 @@ $(document).ready(function () {
              $("#inputGroupCategory > option").each(function() {
                 if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableCategory").text())) {
                     this.selected = true
-                }});
+                }
+            });
             $("#inputGroupTask > option").each(function() {
                 if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableTask").text())) {
                     this.selected = true
-                }});
+                }
+            });
             $("#inputGroupTime > option").each(function() {
                 if (this.value === ($("#logId-" + entryId).parent("tr").children("#tableTime").text())) {
                     this.selected = true
-                }});
+                }
+            });
         });
     }
 
