@@ -68,7 +68,7 @@ module.exports = function (app) {
     });
 
     app.put("/api/employees/:user", function (req, res) {
-        db.Employee.destroy({
+        db.Employee.update({
             where: {
                 name: req.params.user
             }
