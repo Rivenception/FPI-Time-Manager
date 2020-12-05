@@ -5,7 +5,7 @@ $(document).ready(function () {
     let mfg_tasks = ["Tooling LP", "Tooling Mold", "Tooling Hotwire", "Tooling Programming", "GPD Cushion Rev", "GPD dress covers"]
     let eng_tasks = ["Design", "Samples", "GPDs", "Patterns", "TLDs", "BOMs", "Labels", "Product Development", "Review", "Other"]
     let ecr_tasks = ["Design", "GPDs", "Patterns", "TLDs", "BOMs", "Product Development", "Labels", "Review", "Processing", "Other"]
-    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "Training", "H-cell Support", "Production/Mfg Supprort", "Emails"]
+    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "Training", "H-cell Support", "Production/Mfg Support", "Emails"]
     let rd_tasks = ["Product Development", "Production Implementation", "Sales Samples"]
 
 
