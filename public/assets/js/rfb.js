@@ -23,7 +23,7 @@ $(document).ready(function () {
             newTr.append("<td>" + newTimeEntry[i].task + "</td>");
             newTr.append("<td>" + newTimeEntry[i].timespent + "</td>");
             newTr.append("<td>" + newTimeEntry[i].program + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].ecr + "</td>");
+            newTr.append("<td id='tableECR'><a href='/rfb/ecr/" + newEntry[i].ecr + "'>" + newEntry[i].ecr + "</td>");
             newTr.append("<td>" + newTimeEntry[i].notes + "</td>");
             allEntries.push(newTr)
         }

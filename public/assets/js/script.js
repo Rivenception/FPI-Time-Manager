@@ -77,7 +77,7 @@ $(document).ready(function () {
             if (dept === "Engineering") {
                 $.get("/api/employees", function (data) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].dept === 'Engineering') {
+                        if (data[i].dept === 'Engineering' && data[i].status === 'Active') {
                             let dropdown = $("<option>").attr("value", data[i].employee_id).text(data[i].name);
                             employeeInput.append(dropdown);
                         }
@@ -86,7 +86,7 @@ $(document).ready(function () {
             } else if (dept === "Manufacturing") {
                 $.get("/api/employees", function (data) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].dept === 'Manufacturing') {
+                        if (data[i].dept === 'Manufacturing' && data[i].status === 'Active') {
                             let dropdown = $("<option>").attr("value", data[i].employee_id).text(data[i].name);
                             employeeInput.append(dropdown);
                         }
@@ -95,7 +95,7 @@ $(document).ready(function () {
             } else if (dept === "Program Management") {
                 $.get("/api/employees", function (data) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].dept === 'Program Management') {
+                        if (data[i].dept === 'Program Management' && data[i].status === 'Active') {
                             let dropdown = $("<option>").attr("value", data[i].employee_id).text(data[i].name);
                             employeeInput.append(dropdown);
                         }

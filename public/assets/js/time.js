@@ -1,4 +1,4 @@
-// trialing a router switch to calculate total time logged for tasks by week as a mool for metrics later.
+// trialing a router switch to calculate total time logged for tasks by week as a tool for metrics later.
 
 var route = ''
 var htmlHeader = $(".header");
