@@ -5,12 +5,13 @@ CREATE DATABASE time_monitorDB;
 USE time_monitorDB;
 
 CREATE TABLE employees (
-  id VARCHAR(45) NOT NULL,
+  id NOT NULL AUTO_INCREMENT,
   employee_id VARCHAR(45) NOT NULL,
   name VARCHAR(45) NOT NULL,
   dept VARCHAR(45) DEFAULT '' NOT NULL,
   title VARCHAR(45) DEFAULT '' NOT NULL,
   salary INT,
+  company VARCHAR(2) NOT NULL,
   status VARCHAR(45) DEFAULT 'ACTIVE' NOT NULL,
   PRIMARY KEY (employee_id)
   );
@@ -18,6 +19,7 @@ CREATE TABLE employees (
 CREATE TABLE timesheets (
   id INT NOT NULL AUTO_INCREMENT,
   employee_id VARCHAR(45) NOT NULL,
+  name VARCHAR(45) NOT NULL,
   date DATE NOT NULL,
   category VARCHAR(45) NULL,
   task VARCHAR(45) NULL,

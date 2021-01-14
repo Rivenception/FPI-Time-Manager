@@ -11,20 +11,20 @@ $(document).ready(function () {
     getTime();
 
     // Function for creating a new list row for timeblocks
-    function createRow(newTimeEntry) {
+    function createRow(newEntry) {
         var allEntries = [];
-        for (var i = 0; i < newTimeEntry.length; i++) {
+        for (var i = 0; i < newEntry.length; i++) {
             var newTr = $("<tr>");
-            newTr.data("timeblock", newTimeEntry[i].id);
-            newTr.append("<td>" + newTimeEntry[i].id + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].name + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].date + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].category + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].task + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].timespent + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].program + "</td>");
+            newTr.data("timeblock", newEntry[i].id);
+            newTr.append("<td>" + newEntry[i].id + "</td>");
+            newTr.append("<td>" + newEntry[i].name + "</td>");
+            newTr.append("<td>" + newEntry[i].date + "</td>");
+            newTr.append("<td>" + newEntry[i].category + "</td>");
+            newTr.append("<td>" + newEntry[i].task + "</td>");
+            newTr.append("<td>" + newEntry[i].timespent + "</td>");
+            newTr.append("<td>" + newEntry[i].program + "</td>");
             newTr.append("<td id='tableECR'><a href='/rfb/ecr/" + newEntry[i].ecr + "'>" + newEntry[i].ecr + "</td>");
-            newTr.append("<td>" + newTimeEntry[i].notes + "</td>");
+            newTr.append("<td>" + newEntry[i].notes + "</td>");
             allEntries.push(newTr)
         }
         return allEntries;
@@ -36,7 +36,7 @@ $(document).ready(function () {
         var route = "/api/timesheets/programs/" + hiddenURL;
         $.get(route, function (data) {
             for (var i = 0; i < data.length; i++) {
-                var newTimeEntry = {
+                var newEntry = {
                     id: data[i].id,
                     employee_id: data[i].employee_id,
                     name: data[i].name,
@@ -48,8 +48,8 @@ $(document).ready(function () {
                     program: data[i].program,
                     notes: data[i].notes,
                 }
-                // console.log(newTimeEntry);
-                rowsToAdd.push(newTimeEntry);
+                // console.log(newEntry);
+                rowsToAdd.push(newEntry);
                 // console.log(rowsToAdd);
             }
             renderList(createRow(rowsToAdd));
