@@ -1,3 +1,4 @@
+const moment = require("moment");
 var db = require("../../models");
 
 module.exports = function (app) {
@@ -141,6 +142,23 @@ module.exports = function (app) {
             },
             order: [
                 ['id', 'DESC']
+            ]
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
+    // Data based on last Xn of days
+    app.get("/api/timesheets/tasks", function (req, res) {
+        db.Timesheet.findAll({
+            include: [db.Employee],
+            where: {
+                createdAt: {
+                    $gte: moment().subtract(7, 'days').toDate()
+                }
+            },
+            order: [
+                ['date', 'DESC']
             ]
         }).then(function (dbTimesheet) {
             res.json(dbTimesheet);
