@@ -20,6 +20,10 @@ module.exports = function (app) {
     res.render("analysis");
   });
 
+  app.get("/dashboard", function (req, res) {
+    res.render("dashboard");
+  });
+
   app.get("/eng", function (req, res) {
     db.Employee.findOne({
       where: {
