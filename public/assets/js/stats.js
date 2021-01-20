@@ -131,7 +131,7 @@ function populateChart(data) {
         options: {
             title: {
                 display: true,
-                text: "Tasks: Total Time"
+                text: "Categories: Total Time"
             },
             parsing: {
                 yAxesKey: "value"
