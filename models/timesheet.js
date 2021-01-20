@@ -31,8 +31,11 @@ module.exports = function (sequelize, DataTypes) {
         },
         program: {
             type: DataTypes.STRING,
+            defaultValue: "9999",
             allowNull: false,
-            len: [4]
+            validate: {
+                len: [4]
+            },
         },
         ecr: {
             type: DataTypes.STRING,
