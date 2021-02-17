@@ -103,7 +103,7 @@ function populateChart(data) {
             datasets: [
                 {
                     label: "Last 7 Days",
-                    data: timeTasks,
+                    data: timeCategories,
                     backgroundColor: [
                         "rgba(255, 99, 132, 0.2)",
                         "rgba(54, 162, 235, 0.2)",
