@@ -149,12 +149,35 @@ module.exports = function (app) {
     });
 
     // Data based on last Xn of days
-    app.get("/api/timesheets/tasks", function (req, res) {
+    app.get("/api/timesheets/tasks/eng", function (req, res) {
         db.Timesheet.findAll({
-            include: [db.Employee],
+            include: [{
+                model: db.Employee,
+                where: {
+                    dept: "Engineering"
+                }
+            }],
             where: {
                 createdAt: {
                     $gte: moment().subtract(7, 'days').toDate()
+                }
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
+    // Data based on last Xn of days
+    app.get("/api/timesheets/tasks/:id", function (req, res) {
+        db.Timesheet.findAll({
+            include: [db.Employee],
+            where: {
+                employee_id: req.params.id,
+                createdAt: {
+                    $gte: moment().subtract(1, 'days').toDate()
                 }
             },
             order: [
