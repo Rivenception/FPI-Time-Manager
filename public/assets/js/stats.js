@@ -1,8 +1,5 @@
-
-
 // get all workout data from back-end
-
-fetch("/api/timesheets/tasks")
+fetch("/api/timesheets/tasks/eng")
     .then(response => {
         return response.json();
     })
@@ -42,7 +39,7 @@ function populateChart(data) {
     let categories = categoryNames(data);
     const colors = generatePalette();
 
-    let line = document.querySelector("#canvas").getContext("2d");
+    // let line = document.querySelector("#canvas").getContext("2d");
     let barCategories = document.querySelector("#canvas5").getContext("2d");
     let barTasks = document.querySelector("#canvas2").getContext("2d");
     let pie = document.querySelector("#canvas3").getContext("2d");
@@ -102,12 +99,18 @@ function populateChart(data) {
     let barChartCat = new Chart(barCategories, {
         type: "bar",
         data: {
-            labels: tasks,
+            labels: categories,
             datasets: [
                 {
                     label: "Last 7 Days",
                     data: timeTasks,
                     backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)",
                         "rgba(255, 99, 132, 0.2)",
                         "rgba(54, 162, 235, 0.2)",
                         "rgba(255, 206, 86, 0.2)",
@@ -121,7 +124,13 @@ function populateChart(data) {
                         "rgba(255, 206, 86, 1)",
                         "rgba(75, 192, 192, 1)",
                         "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)"
+                        "rgba(255, 159, 64, 1)",
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
                     ],
                     borderWidth: 1
                 }
@@ -131,7 +140,7 @@ function populateChart(data) {
         options: {
             title: {
                 display: true,
-                text: "Categories: Total Time"
+                text: "Categories: Total Time in Hours"
             },
             parsing: {
                 yAxesKey: "value"
@@ -162,6 +171,12 @@ function populateChart(data) {
                         "rgba(255, 206, 86, 0.2)",
                         "rgba(75, 192, 192, 0.2)",
                         "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)",
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
                         "rgba(255, 159, 64, 0.2)"
                     ],
                     borderColor: [
@@ -170,7 +185,13 @@ function populateChart(data) {
                         "rgba(255, 206, 86, 1)",
                         "rgba(75, 192, 192, 1)",
                         "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)"
+                        "rgba(255, 159, 64, 1)",
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)"
                     ],
                     borderWidth: 1
                 }
@@ -180,7 +201,7 @@ function populateChart(data) {
         options: {
             title: {
                 display: true,
-                text: "Tasks: Total Time"
+                text: "Tasks: Total Time in Hours"
             },
             parsing: {
                 yAxesKey: "value"
@@ -261,7 +282,7 @@ function calcTasks(data) {
         let valueTasks = data.filter((tasks) => {
             return tasks.task === tasksList[i];
         }).map((tasks) => {
-            return tasks.timespent;
+            return (tasks.timespent/60);
         }).reduce((total, tasks) => {
             return total + tasks;
         });
@@ -279,7 +300,7 @@ function calcCategories(data) {
         let valueCategory = data.filter((categories) => {
             return categories.category === categoryList[i];
         }).map((categories) => {
-            return categories.timespent;
+            return (categories.timespent/60);
         }).reduce((total, categories) => {
             return total + categories;
         });

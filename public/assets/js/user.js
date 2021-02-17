@@ -199,4 +199,25 @@ $(document).ready(function () {
         submitTableRow(duplicateEntry);
     }
 
+    // This function gets daily time and displays for user
+    function time_convert(num) {
+        const hours = Math.floor(num / 60);  
+        const minutes = num % 60;
+        return `${hours} hrs : ${minutes} mins`;         
+    }
+
+    function getLoggedTime() {
+        var route = "/api/timesheets/tasks/"  + userName;
+        $.get(route, function (data) {
+            time = 0
+            for (var i = 0; i < data.length; i++) {
+                var time = time + data[i].timespent
+            }
+            console.log(time_convert(time) + " logged today");
+            $('#time-log').text("Today " + time_convert(time) + " Logged");
+        });
+    }
+
+    getLoggedTime();
+
 });
