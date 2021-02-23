@@ -1,4 +1,5 @@
 const moment = require("moment");
+const { sequelize } = require("../../models");
 var db = require("../../models");
 
 module.exports = function (app) {
@@ -170,15 +171,16 @@ module.exports = function (app) {
         });
     });
 
-    // Data based on last Xn of days
+    // Data based on current day using moment.js formatting
     app.get("/api/timesheets/tasks/:id", function (req, res) {
         db.Timesheet.findAll({
             include: [db.Employee],
             where: {
                 employee_id: req.params.id,
-                createdAt: {
-                    $gte: moment().subtract(0.5, 'days').toDate()
-                }
+                date: moment(new Date()).format("YYYY-MM-DD")
+                // createdAt: {
+                //     $gte: moment().subtract(1, 'days').toDate()
+                // }
             },
             order: [
                 ['date', 'DESC']
