@@ -177,7 +177,7 @@ module.exports = function (app) {
             where: {
                 employee_id: req.params.id,
                 createdAt: {
-                    $gte: moment().subtract(1, 'days').toDate()
+                    $gte: moment().subtract(0.5, 'days').toDate()
                 }
             },
             order: [
