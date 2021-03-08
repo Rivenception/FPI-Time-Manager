@@ -1,11 +1,11 @@
 // get all workout data from back-end
-fetch("/api/timesheets/tasks/eng")
+fetch("/api/timesheets/tasks/eng/quarterly")
     .then(response => {
         return response.json();
     })
     .then(data => {
         console.log(data)
-        populateChart(data);
+        populateChartQuarterly(data);
     });
 
 function generatePalette() {
@@ -31,7 +31,7 @@ function generatePalette() {
     return arr;
 }
 
-function populateChart(data) {
+function populateChartQuarterly(data) {
     let durations = duration(data);
     let timeTasks = calcTasks(data);
     let timeCategories = calcCategories(data);
@@ -39,11 +39,11 @@ function populateChart(data) {
     let categories = categoryNames(data);
     const colors = generatePalette();
 
-    // let line = document.querySelector("#canvas").getContext("2d");
-    let barCategories = document.querySelector("#canvas5").getContext("2d");
-    let barTasks = document.querySelector("#canvas2").getContext("2d");
-    let pie = document.querySelector("#canvas3").getContext("2d");
-    let pie2 = document.querySelector("#canvas4").getContext("2d");
+    // let line = document.querySelector("#canvas-quarterly").getContext("2d");
+    let barCategories = document.querySelector("#canvas11-quarterly").getContext("2d");
+    let barTasks = document.querySelector("#canvas12-quarterly").getContext("2d");
+    let pie = document.querySelector("#canvas13-quarterly").getContext("2d");
+    let pie2 = document.querySelector("#canvas14-quarterly").getContext("2d");
 
     Chart.defaults.global.defaultFontColor = 'whitesmoke';
 
@@ -102,7 +102,7 @@ function populateChart(data) {
             labels: categories,
             datasets: [
                 {
-                    label: "Last 7 Days",
+                    label: "Total Hours",
                     data: timeCategories,
                     backgroundColor: [
                         "rgba(255, 99, 132, 0.2)",
@@ -140,7 +140,7 @@ function populateChart(data) {
         options: {
             title: {
                 display: true,
-                text: "Categories: Total Time in Hours"
+                text: "Categories"
             },
             parsing: {
                 yAxesKey: "value"
@@ -163,7 +163,7 @@ function populateChart(data) {
             labels: tasks,
             datasets: [
                 {
-                    label: "Last 7 Days",
+                    label: "Total Hours",
                     data: timeTasks,
                     backgroundColor: [
                         "rgba(255, 99, 132, 0.2)",
@@ -201,7 +201,7 @@ function populateChart(data) {
         options: {
             title: {
                 display: true,
-                text: "Tasks: Total Time in Hours"
+                text: "Tasks"
             },
             parsing: {
                 yAxesKey: "value"

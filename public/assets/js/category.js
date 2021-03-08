@@ -2,7 +2,7 @@ $(document).ready(function () {
     var tableBody = $("tbody");
     var tableContainer = $(".table-container");
 
-    var dept = $('#dept').text();
+    var category = $('#category').text();
     var userName = $('#hidden-employeeId').text();
     var nameSelect = $('#inputGroupEmployee');
     var dateSelect = $('#date');
@@ -12,36 +12,36 @@ $(document).ready(function () {
     var programId = $('#inputGroupProgram');
     var inputEcr = $('#inputGroupEcr');
     var inputNotes = $('#inputGroupNotes');
-    var deptURL = '';
+    var categoryURL = '';
 
     $(document).on("click", "#timeSubmit", handleFormSubmit);
     $(document).on("click", ".delete-entry", handleDeleteButtonPress);
 
     // Getting the initial list of Time Entries
     getLastEntries();
-    checkDept();
+    checkCategory();
 
-    // Function that checks html to confirm department called from routes
-    function checkDept() {
-        deptURL = '';
-        if (dept === 'Engineering') {
-            deptURL = "eng";
-            $("#deptSelect > option").each(function() {
-                if (this.value === dept) {
+    // Function that checks html to confirm category called from routes
+    function checkCategory() {
+        categoryURL = '';
+        if (category === 'Engineering') {
+            categoryURL = "eng";
+            $("#categorySelect > option").each(function() {
+                if (this.value === category) {
                     this.selected = true
                 }
             });
-        } else if (dept === 'Manufacturing') {
-            deptURL = "mfg";
-            $("#deptSelect > option").each(function() {
-                if (this.value === dept) {
+        } else if (category === 'Manufacturing') {
+            categoryURL = "mfg";
+            $("#categorySelect > option").each(function() {
+                if (this.value === category) {
                     this.selected = true
                 }
             });
-        } else if (dept === 'Program Management') {
-            deptURL = "pm";
-            $("#deptSelect > option").each(function() {
-                if (this.value === dept) {
+        } else if (category === 'Program Management') {
+            categoryURL = "pm";
+            $("#categorySelect > option").each(function() {
+                if (this.value === category) {
                     this.selected = true
                 }
             });
@@ -84,7 +84,7 @@ $(document).ready(function () {
             var newTr = $("<tr>");
             newTr.data("tableRow", newEntry[i].id);
             newTr.append("<td id=''>" + newEntry[i].id + "</td>");
-            newTr.append("<td id='tableName'><a href='/" + deptURL + "/"  + newEntry[i].employee_id + "'>" + newEntry[i].name + "</td>");
+            newTr.append("<td id='tableName'>" + newEntry[i].name + "</td>");
             newTr.append("<td id='tableDate'>" + newEntry[i].date + "</td>");
             newTr.append("<td id='tableCategory'><a href='/category/" + newEntry[i].category + "'>" + newEntry[i].category + "</td>");
             newTr.append("<td id='tableTask'>" + newEntry[i].task + "</td>");
@@ -99,9 +99,9 @@ $(document).ready(function () {
 
     // Function for retrieving tableRows and getting them ready to be rendered to the page
     function getLastEntries() {
-        checkDept();
+        checkCategory();
         var rowsToAdd = [];
-        var route = "/api/timesheets/limit=50/" + deptURL;
+        var route = "/api/timesheets/" + category;
         console.log(route);
         $.get(route, function (data) {
             for (var i = 0; i < data.length; i++) {

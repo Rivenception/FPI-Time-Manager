@@ -24,6 +24,10 @@ module.exports = function (app) {
     res.render("dashboard");
   });
 
+  app.get("/category", function (req, res) {
+    res.render("category");
+  });
+
   app.get("/eng", function (req, res) {
     db.Employee.findOne({
       where: {
@@ -69,7 +73,6 @@ module.exports = function (app) {
     });
   });
 
-
   app.get("/eng/:user", function (req, res) {
     db.Employee.findOne({
       where: {
@@ -81,6 +84,20 @@ module.exports = function (app) {
         user: dbEmployee.employee_id,
         employeeName: dbEmployee.name,
         dept: dbEmployee.dept,
+      });
+    });
+  });
+
+  app.get("/category/:category", function (req, res) {
+    db.Timesheet.findOne({
+      include: [db.Employee],
+      where: {
+        category: req.params.category
+      }
+    }).then(function (dbTimesheet) {
+      console.log(dbTimesheet.id);
+      res.render("category", {
+        category: dbTimesheet.category,
       });
     });
   });
