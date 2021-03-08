@@ -12,6 +12,7 @@ $(document).ready(function () {
     let eng_category = ["ECR", "Development", "Admin", "R&D"]
     let mfg_category = ["ECR", "Development", "Admin", "R&D"]
     let pm_category = ["Program Management", "Admin"]
+    let all_category = ["ECR", "Development", "Admin", "R&D", "Program Management"]
 
 
     let company = ["US", "UK", "POL"]
@@ -24,6 +25,7 @@ $(document).ready(function () {
     var department = [];
 
     var dept = $('#dept').text();
+    var allCategory = $('#category').text();
     var userName = $('#hidden-employeeId').text();
     var entryId = $('#hidden-logId').text();
 
@@ -142,19 +144,24 @@ $(document).ready(function () {
                     $("#inputGroupCategory").append(dropdown);
                 }
             };
-        } else if (window.location.href === "/eng") {
+        } else if (window.location.pathname === "/eng") {
             for (let i = 0; i < eng_category.length; i++) {
                 let dropdown = $("<option>").attr("value", eng_category[i]).text(eng_category[i]);
                 $("#inputGroupCategory").append(dropdown);
             }
-        } else if (window.location.href === "/mfg") {
+        } else if (window.location.pathname === "/mfg") {
             for (let i = 0; i < mfg_category.length; i++) {
                 let dropdown = $("<option>").attr("value", mfg_category[i]).text(mfg_category[i]);
                 $("#inputGroupCategory").append(dropdown);
             }
-        } else if (window.location.href === "/pm") {
+        } else if (window.location.pathname === "/pm") {
             for (let i = 0; i < pm_category.length; i++) {
                 let dropdown = $("<option>").attr("value", pm_category[i]).text(pm_category[i]);
+                $("#inputGroupCategory").append(dropdown);
+            }
+        } else if (window.location.pathname === "/category" || allCategory) {
+            for (let i = 0; i < all_category.length; i++) {
+                let dropdown = $("<option>").attr("value", all_category[i]).text(all_category[i]);
                 $("#inputGroupCategory").append(dropdown);
             }
         }
@@ -308,6 +315,7 @@ $(document).ready(function () {
     function searchEmployee(event) {
         event.preventDefault();
         var employeeSelect = $("#inputGroupEmployee").val();
+        var categorySelect = $("#inputGroupCategory").val();
         var deptInput = $("#deptSelect").val();
         console.log(employeeSelect);
         if (deptInput === 'Engineering') {
@@ -317,6 +325,8 @@ $(document).ready(function () {
             window.location.href = "/mfg/" + employeeSelect;
         } else if (deptInput === 'Program Management') {
             window.location.href = "/pm/" + employeeSelect;
+        } else if (categorySelect) {
+            window.location.href = "/category/" + categorySelect;
         }
     }
 });

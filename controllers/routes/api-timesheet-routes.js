@@ -149,8 +149,23 @@ module.exports = function (app) {
         });
     });
 
-    // Data based on last Xn of days
-    app.get("/api/timesheets/tasks/eng", function (req, res) {
+    app.get("/api/timesheets/:category", function (req, res) {
+        db.Timesheet.findAll({
+            include: [db.Employee],
+            where: {
+                category: req.params.category
+            },
+            order: [
+                ['id', 'DESC']
+            ],
+            limit: 50
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
+    // Data based on last Xn of days - Weekly
+    app.get("/api/timesheets/tasks/eng/weekly", function (req, res) {
         db.Timesheet.findAll({
             include: [{
                 model: db.Employee,
@@ -161,6 +176,50 @@ module.exports = function (app) {
             where: {
                 createdAt: {
                     $gte: moment().subtract(7, 'days').toDate()
+                }
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
+    // Data based on last Xn of days - Monthly
+    app.get("/api/timesheets/tasks/eng/monthly", function (req, res) {
+        db.Timesheet.findAll({
+            include: [{
+                model: db.Employee,
+                where: {
+                    dept: "Engineering"
+                }
+            }],
+            where: {
+                createdAt: {
+                    $gte: moment().subtract(30, 'days').toDate()
+                }
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
+    // Data based on last Xn of days - Quarterly
+    app.get("/api/timesheets/tasks/eng/quarterly", function (req, res) {
+        db.Timesheet.findAll({
+            include: [{
+                model: db.Employee,
+                where: {
+                    dept: "Engineering"
+                }
+            }],
+            where: {
+                createdAt: {
+                    $gte: moment().subtract(90, 'days').toDate()
                 }
             },
             order: [
