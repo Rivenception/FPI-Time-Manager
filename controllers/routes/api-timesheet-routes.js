@@ -164,6 +164,28 @@ module.exports = function (app) {
         });
     });
 
+    // Data based on last Xn of days - Daily
+    app.get("/api/timesheets/tasks/eng/daily", function (req, res) {
+        db.Timesheet.findAll({
+            include: [{
+                model: db.Employee,
+                where: {
+                    dept: "Engineering"
+                }
+            }],
+            where: {
+                createdAt: {
+                    $gte: moment().subtract(10, 'hours').toDate()
+                }
+            },
+            order: [
+                ['date', 'DESC']
+            ]
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
     // Data based on last Xn of days - Weekly
     app.get("/api/timesheets/tasks/eng/weekly", function (req, res) {
         db.Timesheet.findAll({

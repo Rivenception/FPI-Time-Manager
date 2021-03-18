@@ -5,6 +5,9 @@
     <h2 class="subheader" id="employeeName">{{this.employeeName}}</h2>
     <h2 class="subheader" id="time-log" style="font-size: large;"></h2>
     <h2 class="hidden" id="hidden-employeeId">{{this.user}}</h2>
+    {{#unless this.user}}
+    {{> capacity}}
+    {{/unless}}
 </div>
 <div class="table-container">
   <table class="table table-striped">
