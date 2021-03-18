@@ -252,7 +252,7 @@ $(document).ready(function () {
                 }
             }
         ).then(() => {
-            var hoursLogged = totalCapacityLogged / 60;
+            var hoursLogged = MATH.round(totalCapacityLogged / 60);
             $('#monthly-logged-capacity').text("Monthly Hours Logged: " + hoursLogged + " hours");
         })
     };
@@ -265,7 +265,7 @@ $(document).ready(function () {
                 }
             }
         ).then(() => {
-            var hoursLogged = totalCapacityLogged / 60;
+            var hoursLogged = MATH.round(totalCapacityLogged / 60);
             $('#weekly-logged-capacity').text("Weekly Hours Logged: " + hoursLogged + " hours");
         })
     };
@@ -280,7 +280,7 @@ $(document).ready(function () {
                 console.log("Daily Logged Capacity: " + totalCapacityLogged + " hours")
             }
         ).then(() => {
-            var hoursLogged = totalCapacityLogged / 60;
+            var hoursLogged = MATH.round(totalCapacityLogged / 60);
             $('#daily-logged-capacity').text("Daily Hours Logged: " + hoursLogged + " hours");
         })
     };
