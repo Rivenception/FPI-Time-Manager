@@ -235,9 +235,9 @@ $(document).ready(function () {
             var dailyCap = capacity * day;
             var weeklyCap = capacity * week;
             var monthlyCap = capacity * month;
-            var weightedDailyCap = dailyCap * 0.8;
-            var weightedWeeklyCap = weeklyCap * 0.8;
-            var weightedMonthlyCap = monthlyCap * 0.8;
+            var weightedDailyCap = Math.round(dailyCap * 0.8);
+            var weightedWeeklyCap = Math.round(weeklyCap * 0.8);
+            var weightedMonthlyCap = Math.round(monthlyCap * 0.8);
             $('#daily-capacity').text("Daily Capacity: " + weightedDailyCap + " hours");
             $('#weekly-capacity').text("Weekly Capacity: " + weightedWeeklyCap + " hours");
             $('#monthly-capacity').text("Monthly Capacity: " + weightedMonthlyCap + " hours");
@@ -252,7 +252,7 @@ $(document).ready(function () {
                 }
             }
         ).then(() => {
-            var hoursLogged = MATH.round(totalCapacityLogged / 60);
+            var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#monthly-logged-capacity').text("Monthly Hours Logged: " + hoursLogged + " hours");
         })
     };
@@ -265,7 +265,7 @@ $(document).ready(function () {
                 }
             }
         ).then(() => {
-            var hoursLogged = MATH.round(totalCapacityLogged / 60);
+            var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#weekly-logged-capacity').text("Weekly Hours Logged: " + hoursLogged + " hours");
         })
     };
@@ -280,7 +280,7 @@ $(document).ready(function () {
                 console.log("Daily Logged Capacity: " + totalCapacityLogged + " hours")
             }
         ).then(() => {
-            var hoursLogged = MATH.round(totalCapacityLogged / 60);
+            var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#daily-logged-capacity').text("Daily Hours Logged: " + hoursLogged + " hours");
         })
     };
