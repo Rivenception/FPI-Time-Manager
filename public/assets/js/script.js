@@ -29,6 +29,8 @@ $(document).ready(function () {
     var userName = $('#hidden-employeeId').text();
     var entryId = $('#hidden-logId').text();
 
+    //Section 1: Drop Downs
+
     // Function that dyanmically creates the time input options for the user in the html
     function companyDropdown() {
         console.log("fetching Company...");
@@ -214,12 +216,89 @@ $(document).ready(function () {
         }
     }
 
+    // Section 2: Capacity
+
+    function capacityEng() {
+        let eng_emp_count = 0;
+        $.get("/api/employees", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].dept === 'Engineering' && data[i].status === 'Active') {
+                    eng_emp_count += 1;
+                }
+            }
+            // console.log("Engineering Employees: " + eng_emp_count)
+            var daily_hours = 8
+            var day = 1
+            var week = 4
+            var month = 16
+            var capacity = eng_emp_count * daily_hours;
+            var dailyCap = capacity * day;
+            var weeklyCap = capacity * week;
+            var monthlyCap = capacity * month;
+            var weightedDailyCap = dailyCap * 0.8;
+            var weightedWeeklyCap = weeklyCap * 0.8;
+            var weightedMonthlyCap = monthlyCap * 0.8;
+            $('#daily-capacity').text("Daily Capacity: " + weightedDailyCap + " hours");
+            $('#weekly-capacity').text("Weekly Capacity: " + weightedWeeklyCap + " hours");
+            $('#monthly-capacity').text("Monthly Capacity: " + weightedMonthlyCap + " hours");
+        })
+    }
+
+    function getMonthlyCapacity() {
+        var totalCapacityLogged = 0;
+        $.get("/api/timesheets/tasks/eng/monthly", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                totalCapacityLogged += data[i].timespent
+                }
+            }
+        ).then(() => {
+            var hoursLogged = totalCapacityLogged / 60;
+            $('#monthly-logged-capacity').text("Monthly Hours Logged: " + hoursLogged + " hours");
+        })
+    };
+    
+    function getWeeklyCapacity() {
+        var totalCapacityLogged = 0;
+        $.get("/api/timesheets/tasks/eng/weekly", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                totalCapacityLogged += data[i].timespent
+                }
+            }
+        ).then(() => {
+            var hoursLogged = totalCapacityLogged / 60;
+            $('#weekly-logged-capacity').text("Weekly Hours Logged: " + hoursLogged + " hours");
+        })
+    };
+    
+    function getDailyCapacity() {
+        var totalCapacityLogged = 0;
+        $.get("/api/timesheets/tasks/eng/daily", function (data) {
+            for (var i = 0; i < data.length; i++) {
+                totalCapacityLogged += data[i].timespent
+                console.log(totalCapacityLogged)
+                }
+                console.log("Daily Logged Capacity: " + totalCapacityLogged + " hours")
+            }
+        ).then(() => {
+            var hoursLogged = totalCapacityLogged / 60;
+            $('#daily-logged-capacity').text("Daily Hours Logged: " + hoursLogged + " hours");
+        })
+    };
+
+    // Section 3: Active Functions
+
     getEmployees();
     categoriesDropdown();
     tasksDropdown();
     timesDropdown();
     typeDropdown();
     companyDropdown();
+    capacityEng();
+    getDailyCapacity()
+    getWeeklyCapacity()
+    getMonthlyCapacity()
+
+    // Section 4: On Change Functions
 
     //Set default date of today in date input field
     var today = new Date();
