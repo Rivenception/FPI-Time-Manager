@@ -2,15 +2,14 @@ $(document).ready(function () {
 
 
     let pm_tasks = ["Kick-Off", "Project Planning", "Internal Meeting", "Program Tracking", "Customer Support", "Customer Meeting"]
-    let mfg_tasks = ["Tooling LP", "Tooling Mold", "Tooling Hotwire", "Tooling Programming", "GPD Cushion Rev", "GPD dress covers"]
+    let mfg_tasks = ["Tooling LP", "Tooling Mold", "Tooling Hotwire", "Tooling Programming", "GPD Cushion Rev", "GPD dress covers", "Review", "Other"]
     let eng_tasks = ["Design", "Samples", "GPDs", "Patterns", "TLDs", "BOMs", "Labels", "Product Development", "Review", "Other"]
     let ecr_tasks = ["Design", "GPDs", "Patterns", "TLDs", "BOMs", "Product Development", "Labels", "Review", "Processing", "Other"]
-    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "Training", "H-cell Support", "Production/Mfg Support", "Emails"]
+    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "EHS/PE", "Training", "H-cell Support", "Production/Mfg Support", "Emails"]
     let rd_tasks = ["Product Development", "Production Implementation", "Sales Samples"]
 
-
     let eng_category = ["ECR", "Development", "Admin", "R&D"]
-    let mfg_category = ["ECR", "Development", "Admin", "R&D"]
+    let mfg_category = ["ECR", "Development", "Admin", "R&D", "Transfer"]
     let pm_category = ["Program Management", "Admin"]
     let all_category = ["ECR", "Development", "Admin", "R&D", "Program Management"]
 
@@ -28,6 +27,14 @@ $(document).ready(function () {
     var allCategory = $('#category').text();
     var userName = $('#hidden-employeeId').text();
     var entryId = $('#hidden-logId').text();
+
+    //Set default date of today in date input field
+    var today = new Date();
+    var dd = ("0" + (today.getDate())).slice(-2);
+    var mm = ("0" + (today.getMonth() + 1)).slice(-2);
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    $("#date").attr("value", today);
 
     //Section 1: Drop Downs
 
@@ -249,39 +256,42 @@ $(document).ready(function () {
         $.get("/api/timesheets/tasks/eng/monthly", function (data) {
             for (var i = 0; i < data.length; i++) {
                 totalCapacityLogged += data[i].timespent
-                }
             }
+        }
         ).then(() => {
             var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#monthly-logged-capacity').text("Monthly Hours Logged: " + hoursLogged + " hours");
         })
     };
-    
+
     function getWeeklyCapacity() {
         var totalCapacityLogged = 0;
         $.get("/api/timesheets/tasks/eng/weekly", function (data) {
             for (var i = 0; i < data.length; i++) {
                 totalCapacityLogged += data[i].timespent
-                }
             }
+        }
         ).then(() => {
             var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#weekly-logged-capacity').text("Weekly Hours Logged: " + hoursLogged + " hours");
         })
     };
-    
+
     function getDailyCapacity() {
         var totalCapacityLogged = 0;
         $.get("/api/timesheets/tasks/eng/daily", function (data) {
             for (var i = 0; i < data.length; i++) {
-                totalCapacityLogged += data[i].timespent
-                console.log(totalCapacityLogged)
+                if (data[i].date === today) {
+                    totalCapacityLogged += data[i].timespent
+                    console.log(totalCapacityLogged)
                 }
-                console.log("Daily Logged Capacity: " + totalCapacityLogged + " hours")
             }
+            console.log("Daily Logged Capacity: " + totalCapacityLogged + " minutes")
+        }
         ).then(() => {
             var hoursLogged = Math.round(totalCapacityLogged / 60);
             $('#daily-logged-capacity').text("Daily Hours Logged: " + hoursLogged + " hours");
+            console.log("Daily Logged Capacity: " + hoursLogged + " hours")
         })
     };
 
@@ -299,14 +309,6 @@ $(document).ready(function () {
     getMonthlyCapacity()
 
     // Section 4: On Change Functions
-
-    //Set default date of today in date input field
-    var today = new Date();
-    var dd = ("0" + (today.getDate())).slice(-2);
-    var mm = ("0" + (today.getMonth() + 1)).slice(-2);
-    var yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
-    $("#date").attr("value", today);
 
     $(document).on("change", "#inputGroupCategory", getSelects);
 
@@ -347,6 +349,11 @@ $(document).ready(function () {
         } else if (categoryInput === "R&D") {
             for (let i = 0; i < rd_tasks.length; i++) {
                 let dropdown = $("<option>").attr("value", rd_tasks[i]).text(rd_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (categoryInput === "Transfer") {
+            for (let i = 0; i < mfg_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", mfg_tasks[i]).text(mfg_tasks[i]);
                 $("#inputGroupTask").append(dropdown);
             }
         }

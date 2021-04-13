@@ -4,7 +4,7 @@ fetch("/api/timesheets/tasks/eng/weekly")
         return response.json();
     })
     .then(data => {
-        console.log(data)
+        // console.log(data)
         populateChartWeekly(data);
     });
 
@@ -305,7 +305,7 @@ function calcCategories(data) {
             return total + categories;
         });
         totalCategories.push(valueCategory);
-        console.log(valueCategory)
+        // console.log(valueCategory)
     };
     return totalCategories;
 }
