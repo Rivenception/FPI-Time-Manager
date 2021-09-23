@@ -129,7 +129,7 @@ module.exports = function (app) {
             order: [
                 ['id', 'DESC']
             ],
-            limit: 50
+            limit: 5000
         }).then(function (dbTimesheet) {
             res.json(dbTimesheet);
         });
