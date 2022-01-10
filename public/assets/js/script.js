@@ -2,16 +2,18 @@ $(document).ready(function () {
 
 
     let pm_tasks = ["Kick-Off", "Project Planning", "Internal Meeting", "Program Tracking", "Customer Support", "Customer Meeting"]
-    let mfg_tasks = ["Tooling LP", "Tooling Mold", "Tooling Hotwire", "Tooling Programming", "GPD Cushion Rev", "GPD dress covers", "Review", "Other"]
+    let mfg_tasks = ["Tooling LP", "Tooling Mold", "Tooling Hotwire", "Tooling Programming", "GPD Cushion Rev", "GPD dress covers", "Samples", "Review", "Other"]
     let eng_tasks = ["Design", "Samples", "GPDs", "Patterns", "TLDs", "BOMs", "Labels", "Product Development", "Review", "Other"]
     let ecr_tasks = ["Design", "GPDs", "Patterns", "TLDs", "BOMs", "Product Development", "Labels", "Review", "Processing", "Other"]
-    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "EHS/PE", "Training", "H-cell Support", "Production/Mfg Support", "Emails"]
+    let admin_tasks = ["Other", "Internal Meeting", "Customer Meeting", "EHS/PE", "Training", "H-cell Support", "Emails"]
     let rd_tasks = ["Product Development", "Production Implementation", "Sales Samples"]
+    let ci_tasks = ["Internal Meeting", "Training", "Review", "Other"]
+    let ps_tasks = ["Production Support", "Samples Support"]
 
-    let eng_category = ["ECR", "Development", "Admin", "R&D"]
-    let mfg_category = ["ECR", "Development", "Admin", "R&D", "Transfer"]
+    let eng_category = ["ECR", "Development", "Admin", "Production/Mfg Support", "Continuous Improvement", "R&D"]
+    let mfg_category = ["ECR", "Development", "Admin", "Production/Mfg Support", "Continuous Improvement", "Transfer", "R&D"]
     let pm_category = ["Program Management", "Admin"]
-    let all_category = ["ECR", "Development", "Admin", "R&D", "Program Management"]
+    let all_category = ["ECR", "Development", "Admin", "R&D", "Program Management", "Production/Mfg Support", "Continuous Improvement"]
 
 
     let company = ["US", "UK", "POL"]
@@ -354,6 +356,16 @@ $(document).ready(function () {
         } else if (categoryInput === "Transfer") {
             for (let i = 0; i < mfg_tasks.length; i++) {
                 let dropdown = $("<option>").attr("value", mfg_tasks[i]).text(mfg_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (categoryInput === "Production/Mfg Support") {
+            for (let i = 0; i < ps_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", ps_tasks[i]).text(ps_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (categoryInput === "Continuous Improvement") {
+            for (let i = 0; i < ci_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", ci_tasks[i]).text(ci_tasks[i]);
                 $("#inputGroupTask").append(dropdown);
             }
         }
