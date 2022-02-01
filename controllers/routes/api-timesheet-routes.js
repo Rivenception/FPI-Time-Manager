@@ -63,6 +63,7 @@ module.exports = function (app) {
                 },
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ],
             limit: 50
@@ -80,6 +81,7 @@ module.exports = function (app) {
                 },
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ],
             limit: 50
@@ -97,6 +99,7 @@ module.exports = function (app) {
                 },
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ],
             limit: 50
@@ -127,6 +130,7 @@ module.exports = function (app) {
                 program: req.params.rfb
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ],
             limit: 5000
@@ -142,6 +146,7 @@ module.exports = function (app) {
                 ecr: req.params.ecr
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ]
         }).then(function (dbTimesheet) {
@@ -156,6 +161,7 @@ module.exports = function (app) {
                 category: req.params.category
             },
             order: [
+                ['date', 'DESC'],
                 ['id', 'DESC']
             ],
             limit: 50
