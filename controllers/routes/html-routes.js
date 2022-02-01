@@ -28,6 +28,8 @@ module.exports = function (app) {
     res.render("category");
   });
 
+// Department Pages
+
   app.get("/eng", function (req, res) {
     db.Employee.findOne({
       where: {
@@ -65,6 +67,19 @@ module.exports = function (app) {
     });
   });
 
+  app.get("/certs", function (req, res) {
+    db.Employee.findOne({
+      where: {
+        dept: 'Certification'
+      }
+    }).then(function (dbEmployee) {
+      console.log(dbEmployee.dept)
+      res.render("certs", {
+        dept: dbEmployee.dept,
+      });
+    });
+  });
+
   app.get("/rfb", function (req, res) {
     res.render("rfb", {
       user: dbEmployee.employee_id,
@@ -72,6 +87,8 @@ module.exports = function (app) {
       dept: dbEmployee.dept,
     });
   });
+
+  // User Specific Department Pages
 
   app.get("/eng/:user", function (req, res) {
     db.Employee.findOne({
@@ -88,33 +105,17 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/category/:category", function (req, res) {
-    db.Timesheet.findOne({
-      include: [db.Employee],
+  app.get("/certs/:user", function (req, res) {
+    db.Employee.findOne({
       where: {
-        category: req.params.category
+        employee_id: req.params.user
       }
-    }).then(function (dbTimesheet) {
-      console.log(dbTimesheet.id);
-      res.render("category", {
-        category: dbTimesheet.category,
-      });
-    });
-  });
-
-  app.get("/update/:id", function (req, res) {
-    db.Timesheet.findOne({
-      include: [db.Employee],
-      where: {
-        id: req.params.id
-      }
-    }).then(function (dbTimesheet) {
-      console.log(dbTimesheet.id);
-      res.render("update", {
-        logId: dbTimesheet.id,
-        user: dbTimesheet.employee_id,
-        employeeName: dbTimesheet.name,
-        dept: dbTimesheet.Employee.dept
+    }).then(function (dbEmployee) {
+      console.log(dbEmployee.employee_id);
+      res.render("certs", {
+        user: dbEmployee.employee_id,
+        employeeName: dbEmployee.name,
+        dept: dbEmployee.dept,
       });
     });
   });
@@ -160,6 +161,37 @@ module.exports = function (app) {
         user: dbEmployee.employee_id,
         employeeName: dbEmployee.name,
         dept: dbEmployee.dept,
+      });
+    });
+  });
+
+  app.get("/category/:category", function (req, res) {
+    db.Timesheet.findOne({
+      include: [db.Employee],
+      where: {
+        category: req.params.category
+      }
+    }).then(function (dbTimesheet) {
+      console.log(dbTimesheet.id);
+      res.render("category", {
+        category: dbTimesheet.category,
+      });
+    });
+  });
+
+  app.get("/update/:id", function (req, res) {
+    db.Timesheet.findOne({
+      include: [db.Employee],
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbTimesheet) {
+      console.log(dbTimesheet.id);
+      res.render("update", {
+        logId: dbTimesheet.id,
+        user: dbTimesheet.employee_id,
+        employeeName: dbTimesheet.name,
+        dept: dbTimesheet.Employee.dept
       });
     });
   });

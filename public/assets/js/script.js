@@ -9,10 +9,12 @@ $(document).ready(function () {
     let rd_tasks = ["Product Development", "Production Implementation", "Sales Samples"]
     let ci_tasks = ["Internal Meeting", "Training", "Review", "Other"]
     let ps_tasks = ["Production Support", "Samples Support"]
+    let cert_tasks = ["Drawings", "GPDs", "Test Plan"]
 
     let eng_category = ["ECR", "Development", "Admin", "Production/Mfg Support", "Continuous Improvement", "R&D"]
     let mfg_category = ["ECR", "Development", "Admin", "Production/Mfg Support", "Continuous Improvement", "Transfer", "R&D"]
     let pm_category = ["Program Management", "Admin"]
+    let cert_category = ["Dress Cover", "Oil Burn/C-Burn", "Vertical Burn/A-Burn"]
     let all_category = ["ECR", "Development", "Admin", "R&D", "Program Management", "Production/Mfg Support", "Continuous Improvement"]
 
 
@@ -114,6 +116,15 @@ $(document).ready(function () {
                         }
                     }
                 })
+            } else if (dept === "Certification") {
+                $.get("/api/employees", function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].dept === 'Certification' && data[i].status === 'Active') {
+                            let dropdown = $("<option>").attr("value", data[i].employee_id).text(data[i].name);
+                            employeeInput.append(dropdown);
+                        }
+                    }
+                })
             };
         };
     };
@@ -137,6 +148,11 @@ $(document).ready(function () {
                     let dropdown = $("<option>").attr("value", pm_category[i]).text(pm_category[i]);
                     $("#inputGroupCategory").append(dropdown);
                 }
+            } else if (dept === "Certification") {
+                for (let i = 0; i < cert_category.length; i++) {
+                    let dropdown = $("<option>").attr("value", cert_category[i]).text(cert_category[i]);
+                    $("#inputGroupCategory").append(dropdown);
+                }
             };
         } else if (userName && dept) {
             if (dept === "Engineering") {
@@ -154,6 +170,11 @@ $(document).ready(function () {
                     let dropdown = $("<option>").attr("value", pm_category[i]).text(pm_category[i]);
                     $("#inputGroupCategory").append(dropdown);
                 }
+            } else if (dept === "Certification") {
+                for (let i = 0; i < cert_category.length; i++) {
+                    let dropdown = $("<option>").attr("value", cert_category[i]).text(cert_category[i]);
+                    $("#inputGroupCategory").append(dropdown);
+                }
             };
         } else if (window.location.pathname === "/eng") {
             for (let i = 0; i < eng_category.length; i++) {
@@ -168,6 +189,11 @@ $(document).ready(function () {
         } else if (window.location.pathname === "/pm") {
             for (let i = 0; i < pm_category.length; i++) {
                 let dropdown = $("<option>").attr("value", pm_category[i]).text(pm_category[i]);
+                $("#inputGroupCategory").append(dropdown);
+            }
+        } else if (window.location.pathname === "/certs") {
+            for (let i = 0; i < cert_category.length; i++) {
+                let dropdown = $("<option>").attr("value", cert_category[i]).text(cert_category[i]);
                 $("#inputGroupCategory").append(dropdown);
             }
         } else if (window.location.pathname === "/category" || allCategory) {
@@ -197,6 +223,11 @@ $(document).ready(function () {
                     let dropdown = $("<option>").attr("value", pm_tasks[i]).text(pm_tasks[i]);
                     $("#inputGroupTask").append(dropdown);
                 }
+            } else if (dept === 'Certification') {
+                for (let i = 0; i < cert_tasks.length; i++) {
+                    let dropdown = $("<option>").attr("value", cert_tasks[i]).text(cert_tasks[i]);
+                    $("#inputGroupTask").append(dropdown);
+                }
             };
         } else if (dept === 'Engineering') {
             for (let i = 0; i < eng_tasks.length; i++) {
@@ -211,6 +242,11 @@ $(document).ready(function () {
         } else if (dept === 'Program Management') {
             for (let i = 0; i < pm_tasks.length; i++) {
                 let dropdown = $("<option>").attr("value", pm_tasks[i]).text(pm_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
+        } else if (dept === 'Certification') {
+            for (let i = 0; i < cert_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", cert_tasks[i]).text(cert_tasks[i]);
                 $("#inputGroupTask").append(dropdown);
             }
         };
@@ -368,6 +404,11 @@ $(document).ready(function () {
                 let dropdown = $("<option>").attr("value", ci_tasks[i]).text(ci_tasks[i]);
                 $("#inputGroupTask").append(dropdown);
             }
+        } else if (categoryInput === "Oil Burn/C-Burn" || "Vertical Burn/A-Burn" || "Dress Cover") {
+            for (let i = 0; i < cert_tasks.length; i++) {
+                let dropdown = $("<option>").attr("value", cert_tasks[i]).text(cert_tasks[i]);
+                $("#inputGroupTask").append(dropdown);
+            }
         }
     }
 
@@ -405,6 +446,15 @@ $(document).ready(function () {
                     }
                 }
             })
+        } else if (deptInput === "Certification") {
+            $.get("/api/employees", function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].dept === 'Certification') {
+                        let dropdown = $("<option>").attr("value", data[i].employee_id).text(data[i].name);
+                        employeeInput.append(dropdown);
+                    }
+                }
+            })
         };
     }
 
@@ -423,7 +473,9 @@ $(document).ready(function () {
             window.location.href = "/mfg/" + employeeSelect;
         } else if (deptInput === 'Program Management') {
             window.location.href = "/pm/" + employeeSelect;
-        } else if (categorySelect) {
+        } else if (deptInput === 'Certification') {
+            window.location.href = "/certs/" + employeeSelect;
+        }  else if (categorySelect) {
             window.location.href = "/category/" + categorySelect;
         }
     }

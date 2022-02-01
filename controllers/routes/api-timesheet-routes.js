@@ -108,6 +108,24 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/api/timesheets/limit=50/certs", function (req, res) {
+        db.Timesheet.findAll({
+            include: {
+                model: db.Employee,
+                where: {
+                    dept: 'Certification'
+                },
+            },
+            order: [
+                ['date', 'DESC'],
+                ['id', 'DESC']
+            ],
+            limit: 50
+        }).then(function (dbTimesheet) {
+            res.json(dbTimesheet);
+        });
+    });
+
     app.get("/api/timesheets/limit=50/:user?", function (req, res) {
         db.Timesheet.findAll({
             include: [db.Employee],

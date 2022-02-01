@@ -30,6 +30,8 @@ $(document).ready(function () {
             deptURL = "mfg";
         } else if (dept === 'Program Management') {
             deptURL = "pm";
+        } else if (dept === 'Certification') {
+            deptURL = "certs";
         };
     };
 
