@@ -52,6 +52,19 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/api/employees/certs", function (req, res) {
+        db.Employee.findAll({
+            where: {
+                dept: 'Certification'
+            },
+            order: [
+                ['name', 'ASC']
+            ],
+        }).then(function (dbEmployee) {
+            res.json(dbEmployee);
+        });
+    });
+
     app.get("/api/employees/:user", function (req, res) {
         db.Employee.findOne({
             where: {

@@ -45,6 +45,13 @@ $(document).ready(function () {
                     this.selected = true
                 }
             });
+        } else if (dept === 'Certification') {
+            deptURL = "certs";
+            $("#deptSelect > option").each(function() {
+                if (this.value === dept) {
+                    this.selected = true
+                }
+            });
         };
     };
 
