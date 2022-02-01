@@ -4,6 +4,8 @@ module.exports = function (app) {
     app.get("/api/employees", function (req, res) {
         db.Employee.findAll({
             order: [
+                ['status', 'ASC'],
+                ['dept', 'ASC'],
                 ['name', 'ASC']
             ],
         }).then(function (dbEmployee) {
