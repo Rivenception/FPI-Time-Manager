@@ -36,6 +36,11 @@ require("./controllers/routes/html-routes.js")(app);
 // Partials functions
 // Handlebars.registerHelper('mgr', '{{partials}}');
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
